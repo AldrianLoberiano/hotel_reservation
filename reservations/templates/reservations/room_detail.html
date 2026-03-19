@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ room.name }} | StaySmart{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+    <!-- Room Info -->
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm mb-4">
+            {% if room.image %}
+                <img src="{{ room.image.url }}" class="detail-image card-img-top" alt="{{ room.name }}">
+            {% else %}
+                <div class="detail-image placeholder-bg d-flex align-items-center justify-content-center flex-column gap-2">
+                    <i class="bi bi-image fs-1 opacity-40"></i>
+                    <span>No Photo Available</span>
+                </div>
+            {% endif %}
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-3">
+                    <div>
+                        <h1 class="h3 mb-1 fw-bold">{{ room.name }}</h1>
+                        <span class="room-type-badge">{{ room.get_room_type_display }}</span>
+                    </div>
+                    <div class="text-end">
+                        <div class="room-price">${{ room.price }}<small> / night</small></div>
+                        {% if room.avg_rating %}
+                        <div class="d-flex align-items-center gap-1 justify-content-end mt-1">
+                            <span class="stars-sm">{% with r=room.avg_rating|floatformat:0 %}{% for i in "12345" %}{% if forloop.counter <= r|add:"0" %}★{% else %}☆{% endif %}{% endfor %}{% endwith %}</span>
+                            <span class="rating-count">{{ room.avg_rating|floatformat:1 }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="d-flex gap-4 mb-3 text-secondary small">
+                    <span><i class="bi bi-people-fill me-1 text-indigo-600"></i><strong>{{ room.capacity }}</strong> guest{{ room.capacity|pluralize }}</span>
+                    <span><i class="bi bi-check-circle me-1 text-success"></i>Available</span>
+                </div>
+
+                {% if room.description %}
+                <p class="text-secondary lh-lg">{{ room.description }}</p>
+                {% else %}
+                <p class="text-muted fst-italic">No description provided.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Reviews -->
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="section-title"><i class="bi bi-star-half me-2 text-warning"></i>Guest Reviews</h2>
+                {% for review in reviews %}
+                    <div class="d-flex gap-3 py-3 {% if not forloop.first %}border-top{% endif %}">
+                        <div style="width:38px;height:38px;background:linear-gradient(135deg,#4f46e5,#818cf8);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:.9rem;flex-shrink:0;">
+                            {{ review.user.username|slice:":1"|upper }}
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <strong class="small">{{ review.user.username }}</strong>
+                                <span class="stars-sm">{% for i in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</span>
+                                <span class="text-muted" style="font-size:.75rem;">{{ review.created_at|date:"M d, Y" }}</span>
+                            </div>
+                            {% if review.comment %}<p class="mb-0 small text-secondary">{{ review.comment }}</p>{% endif %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="empty-state py-3">
+                        <i class="bi bi-chat-square-text" style="font-size:2rem;opacity:.25;display:block;margin-bottom:.75rem;"></i>
+                        <p class="mb-0">No reviews yet. Be the first to share your experience!</p>
+                    </div>
+                {% endfor %}
+
+                {% if user.is_authenticated %}
+                <div class="border-top pt-3 mt-3">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-pencil me-1"></i>Leave a Review</h6>
+                    <form method="post" action="{% url 'add_review' room.id %}">
+                        {% csrf_token %}
+                        <div class="row g-2 align-items-start">
+                            <div class="col-md-3">
+                                <label class="form-label">Rating (1–5)</label>
+                                {{ review_form.rating }}
+                            </div>
+                            <div class="col-md-9">
+                                <label class="form-label">Your Comment</label>
+                                {{ review_form.comment }}
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm mt-2" type="submit">
+                            <i class="bi bi-send me-1"></i>Submit Review
+                        </button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Sidebar -->
+    <div class="col-lg-5">
+        <div class="card border-0 shadow-sm booking-sidebar">
+            <div class="card-body p-4">
+                <h2 class="h5 fw-bold mb-1"><i class="bi bi-calendar-check me-2"></i>Book This Room</h2>
+                <p class="text-muted small mb-3">Complete your reservation below</p>
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'create_booking' room.id %}" id="booking-form">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label"><i class="bi bi-calendar-event me-1"></i>Check-in Date</label>
+                            {{ booking_form.check_in }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><i class="bi bi-calendar-x me-1"></i>Check-out Date</label>
+                            {{ booking_form.check_out }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><i class="bi bi-credit-card me-1"></i>Payment Method</label>
+                            {{ booking_form.payment_method }}
+                        </div>
+
+                        <!-- Price Preview -->
+                        <div id="price-preview" class="p-3 rounded-3 mb-3" style="background:#f0f4ff;display:none;">
+                            <div class="d-flex justify-content-between small text-muted mb-1">
+                                <span>${{ room.price }} &times; <span id="nights-count">0</span> nights</span>
+                                <span id="total-price" class="fw-bold text-brand">$0</span>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary w-100 py-2" type="submit">
+                            <i class="bi bi-check-circle me-1"></i>Confirm Booking
+                        </button>
+                    </form>
+                {% else %}
+                    <div class="text-center py-4">
+                        <div style="font-size:3rem;opacity:.25;margin-bottom:1rem;"><i class="bi bi-lock"></i></div>
+                        <p class="text-muted mb-3">You need to be logged in to book this room.</p>
+                        <a href="{% url 'login' %}" class="btn btn-primary w-100 mb-2"><i class="bi bi-person me-1"></i>Login</a>
+                        <a href="{% url 'register' %}" class="btn btn-outline-primary w-100">Create Account</a>
+                    </div>
+                {% endif %}
+            </div>
+            {% if user.is_authenticated %}
+            <div class="card-footer bg-transparent border-top p-3">
+                <p class="small text-muted mb-0 text-center"><i class="bi bi-shield-check me-1 text-success"></i>Secure booking with instant confirmation</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Room Highlights -->
+        <div class="card border-0 shadow-sm mt-3">
+            <div class="card-body p-4">
+                <h6 class="fw-bold mb-3"><i class="bi bi-info-circle me-1"></i>Room Highlights</h6>
+                <ul class="list-unstyled mb-0 small text-secondary">
+                    <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-check-circle-fill text-success"></i>Free Wi-Fi Included</li>
+                    <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-check-circle-fill text-success"></i>Daily Housekeeping</li>
+                    <li class="d-flex align-items-center gap-2 mb-2"><i class="bi bi-check-circle-fill text-success"></i>24/7 Front Desk</li>
+                    <li class="d-flex align-items-center gap-2"><i class="bi bi-check-circle-fill text-success"></i>Flexible Payment Options</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+    const pricePerNight = {{ room.price }};
+    const checkIn  = document.querySelector('[name="check_in"]');
+    const checkOut = document.querySelector('[name="check_out"]');
+    const preview  = document.getElementById('price-preview');
+    const nightsEl = document.getElementById('nights-count');
+    const totalEl  = document.getElementById('total-price');
+
+    function updatePreview() {
+        if (!checkIn.value || !checkOut.value) { preview.style.display = 'none'; return; }
+        const diff = (new Date(checkOut.value) - new Date(checkIn.value)) / 86400000;
+        if (diff <= 0) { preview.style.display = 'none'; return; }
+        nightsEl.textContent = diff;
+        totalEl.textContent = '$' + (diff * pricePerNight).toFixed(2);
+        preview.style.display = 'block';
+    }
+    checkIn && checkIn.addEventListener('change', updatePreview);
+    checkOut && checkOut.addEventListener('change', updatePreview);
+})();
+</script>
+{% endblock %}
