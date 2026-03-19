@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard | StaySmart{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+        <h1 class="h3 mb-0 fw-bold"><i class="bi bi-speedometer2 me-2"></i>Admin Dashboard</h1>
+        <p class="text-muted small mb-0">Overview of hotel operations</p>
+    </div>
+</div>
+
+<!-- Admin Nav -->
+<div class="admin-nav mb-4">
+    <a href="{% url 'admin_dashboard' %}" class="active"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+    <a href="{% url 'admin_room_list' %}"><i class="bi bi-door-open me-1"></i>Manage Rooms</a>
+    <a href="{% url 'admin_booking_list' %}"><i class="bi bi-calendar-check me-1"></i>Manage Bookings</a>
+    <a href="{% url 'admin_reports' %}"><i class="bi bi-bar-chart-line me-1"></i>Reports</a>
+</div>
+
+<!-- Stat Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4 col-lg">
+        <div class="stat-card stat-indigo">
+            <div class="stat-icon"><i class="bi bi-door-open-fill"></i></div>
+            <div class="stat-value">{{ stats.rooms }}</div>
+            <div class="stat-label">Total Rooms</div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg">
+        <div class="stat-card stat-dark">
+            <div class="stat-icon"><i class="bi bi-calendar2-check-fill"></i></div>
+            <div class="stat-value">{{ stats.bookings }}</div>
+            <div class="stat-label">All Bookings</div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg">
+        <div class="stat-card stat-amber">
+            <div class="stat-icon"><i class="bi bi-hourglass-split"></i></div>
+            <div class="stat-value">{{ stats.pending }}</div>
+            <div class="stat-label">Pending</div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg">
+        <div class="stat-card stat-teal">
+            <div class="stat-icon"><i class="bi bi-check-circle-fill"></i></div>
+            <div class="stat-value">{{ stats.confirmed }}</div>
+            <div class="stat-label">Confirmed</div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg">
+        <div class="stat-card stat-success">
+            <div class="stat-icon"><i class="bi bi-cash-coin"></i></div>
+            <div class="stat-value">${{ stats.revenue }}</div>
+            <div class="stat-label">Revenue</div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Bookings -->
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="section-title mb-0 pb-0 border-0"><i class="bi bi-clock-history me-2"></i>Recent Bookings</h2>
+            <a href="{% url 'admin_booking_list' %}" class="btn btn-sm btn-outline-primary">View All</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th>Guest</th>
+                        <th>Room</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in recent_bookings %}
+                    <tr>
+                        <td><code style="font-size:.78rem;background:#e0e7ff;padding:.2rem .5rem;border-radius:.3rem;">{{ booking.booking_reference }}</code></td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="width:28px;height:28px;background:linear-gradient(135deg,#4f46e5,#818cf8);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.75rem;font-weight:700;">{{ booking.user.username|slice:":1"|upper }}</span>
+                                {{ booking.user.username }}
+                            </div>
+                        </td>
+                        <td>{{ booking.room.name }}</td>
+                        <td>{{ booking.check_in|date:"M d, Y" }}</td>
+                        <td>{{ booking.check_out|date:"M d, Y" }}</td>
+                        <td>
+                            <span class="badge-status {% if booking.status == 'confirmed' %}badge-confirmed{% elif booking.status == 'pending' %}badge-pending{% else %}badge-cancelled{% endif %}">
+                                {{ booking.get_status_display }}
+                            </span>
+                        </td>
+                        <td class="fw-bold">${{ booking.total_price }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="7"><div class="empty-state py-3"><i class="bi bi-inbox" style="font-size:2rem;opacity:.2;display:block;margin-bottom:.5rem;"></i><p class="mb-0">No bookings yet.</p></div></td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
