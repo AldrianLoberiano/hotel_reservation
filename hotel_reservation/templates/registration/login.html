@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign In | StaySmart{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <div class="auth-icon"><i class="bi bi-person-fill"></i></div>
+    <h2 class="text-center fw-bold mb-1" style="font-size:1.4rem;">Welcome Back</h2>
+    <p class="text-center text-muted small mb-4">Sign in to your StaySmart account</p>
+
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <div class="text-danger small mt-1"><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        {% endfor %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger d-flex align-items-center gap-2 mb-3">
+                <i class="bi bi-exclamation-triangle-fill flex-shrink-0"></i>
+                <span>{{ form.non_field_errors.0 }}</span>
+            </div>
+        {% endif %}
+        <button class="btn btn-primary w-100 py-2 mt-1" type="submit">
+            <i class="bi bi-box-arrow-in-right me-1"></i>Sign In
+        </button>
+    </form>
+    <hr class="my-4">
+    <p class="text-center text-muted small mb-0">
+        Don't have an account?
+        <a href="{% url 'register' %}" class="fw-semibold text-brand">Create one free</a>
+    </p>
+</div>
+{% endblock %}
