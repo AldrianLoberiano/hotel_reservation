@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Reports | StaySmart Admin{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <h1 class="h3 mb-0 fw-bold"><i class="bi bi-bar-chart-line me-2"></i>Booking Reports</h1>
+    <p class="text-muted small mb-0">Revenue and booking performance summary</p>
+</div>
+
+<div class="admin-nav mb-4">
+    <a href="{% url 'admin_dashboard' %}"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+    <a href="{% url 'admin_room_list' %}"><i class="bi bi-door-open me-1"></i>Manage Rooms</a>
+    <a href="{% url 'admin_booking_list' %}"><i class="bi bi-calendar-check me-1"></i>Manage Bookings</a>
+    <a href="{% url 'admin_reports' %}" class="active"><i class="bi bi-bar-chart-line me-1"></i>Reports</a>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="stat-card stat-indigo">
+            <div class="stat-icon"><i class="bi bi-calendar2-check-fill"></i></div>
+            <div class="stat-value">{{ totals.all_bookings }}</div>
+            <div class="stat-label">Total Bookings</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card stat-success">
+            <div class="stat-icon"><i class="bi bi-cash-coin"></i></div>
+            <div class="stat-value">${{ totals.confirmed_revenue }}</div>
+            <div class="stat-label">Confirmed Revenue</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card stat-danger">
+            <div class="stat-icon"><i class="bi bi-x-circle-fill"></i></div>
+            <div class="stat-value">{{ totals.cancelled }}</div>
+            <div class="stat-label">Cancelled Bookings</div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <h2 class="section-title"><i class="bi bi-table me-2"></i>Revenue by Room</h2>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Room</th>
+                        <th>Total Bookings</th>
+                        <th>Revenue Generated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in room_summary %}
+                    <tr>
+                        <td class="fw-600">{{ row.room__name }}</td>
+                        <td><span class="badge bg-light text-dark border">{{ row.total_bookings }}</span></td>
+                        <td class="fw-bold text-success">${{ row.revenue|default:0 }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="3">
+                        <div class="empty-state">
+                            <i class="bi bi-bar-chart"></i>
+                            <p class="mb-0">No data available yet.</p>
+                        </div>
+                    </td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
