@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}My Dashboard | StaySmart{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+        <h1 class="h3 mb-0 fw-bold">My Bookings</h1>
+        <p class="text-muted small mb-0">Welcome back, <strong>{{ user.username }}</strong></p>
+    </div>
+    <a href="{% url 'room_list' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>Book a Room
+    </a>
+</div>
+
+<!-- Stat Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="stat-card stat-indigo">
+            <div class="stat-icon"><i class="bi bi-calendar2-check"></i></div>
+            <div class="stat-value">{{ stats.total }}</div>
+            <div class="stat-label">Total Bookings</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card stat-teal">
+            <div class="stat-icon"><i class="bi bi-clock-history"></i></div>
+            <div class="stat-value">{{ stats.upcoming }}</div>
+            <div class="stat-label">Upcoming Stays</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card stat-dark">
+            <div class="stat-icon"><i class="bi bi-cash-stack"></i></div>
+            <div class="stat-value">${{ stats.spent }}</div>
+            <div class="stat-label">Confirmed Spend</div>
+        </div>
+    </div>
+</div>
+
+<!-- Bookings Table -->
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <h2 class="section-title"><i class="bi bi-list-ul me-2"></i>Booking History</h2>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th>Room</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Nights</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td>
+                            <code class="text-indigo" style="font-size:.8rem;background:#e0e7ff;padding:.2rem .5rem;border-radius:.35rem;">{{ booking.booking_reference }}</code>
+                        </td>
+                        <td class="fw-500">{{ booking.room.name }}</td>
+                        <td>{{ booking.check_in|date:"M d, Y" }}</td>
+                        <td>{{ booking.check_out|date:"M d, Y" }}</td>
+                        <td><span class="badge bg-light text-dark border">{{ booking.nights }}n</span></td>
+                        <td class="fw-bold">${{ booking.total_price }}</td>
+                        <td class="small text-muted">{{ booking.get_payment_method_display }}</td>
+                        <td>
+                            <span class="badge-status {% if booking.status == 'confirmed' %}badge-confirmed{% elif booking.status == 'pending' %}badge-pending{% else %}badge-cancelled{% endif %}">
+                                {{ booking.get_status_display }}
+                            </span>
+                        </td>
+                        <td>
+                            {% if booking.status == 'pending' %}
+                                <form method="post" action="{% url 'cancel_booking' booking.id %}" onsubmit="return confirm('Cancel this booking?')">
+                                    {% csrf_token %}
+                                    <button class="btn btn-sm btn-outline-danger" type="submit">
+                                        <i class="bi bi-x-circle me-1"></i>Cancel
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="9">
+                            <div class="empty-state">
+                                <i class="bi bi-calendar-x"></i>
+                                <h6 class="fw-bold text-secondary">No Bookings Yet</h6>
+                                <p>Start exploring our rooms and make your first booking.</p>
+                                <a href="{% url 'room_list' %}" class="btn btn-primary btn-sm">Browse Rooms</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
