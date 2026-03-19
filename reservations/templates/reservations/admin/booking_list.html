@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Bookings | StaySmart{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+        <h1 class="h3 mb-0 fw-bold"><i class="bi bi-calendar-check me-2"></i>Manage Bookings</h1>
+        <p class="text-muted small mb-0">Review and update booking statuses</p>
+    </div>
+    <a href="{% url 'admin_reports' %}" class="btn btn-outline-primary">
+        <i class="bi bi-bar-chart-line me-1"></i>View Reports
+    </a>
+</div>
+
+<div class="admin-nav mb-4">
+    <a href="{% url 'admin_dashboard' %}"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a>
+    <a href="{% url 'admin_room_list' %}"><i class="bi bi-door-open me-1"></i>Manage Rooms</a>
+    <a href="{% url 'admin_booking_list' %}" class="active"><i class="bi bi-calendar-check me-1"></i>Manage Bookings</a>
+    <a href="{% url 'admin_reports' %}"><i class="bi bi-bar-chart-line me-1"></i>Reports</a>
+</div>
+
+<!-- Status Filter Tabs -->
+<div class="d-flex gap-2 mb-3 flex-wrap">
+    <a href="{% url 'admin_booking_list' %}" class="btn btn-sm {% if not request.GET.status %}btn-primary{% else %}btn-outline-secondary{% endif %}">All</a>
+    <a href="?status=pending" class="btn btn-sm {% if request.GET.status == 'pending' %}btn-warning text-dark{% else %}btn-outline-secondary{% endif %}">Pending</a>
+    <a href="?status=confirmed" class="btn btn-sm {% if request.GET.status == 'confirmed' %}btn-success{% else %}btn-outline-secondary{% endif %}">Confirmed</a>
+    <a href="?status=cancelled" class="btn btn-sm {% if request.GET.status == 'cancelled' %}btn-danger{% else %}btn-outline-secondary{% endif %}">Cancelled</a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Reference</th>
+                        <th>Guest</th>
+                        <th>Room</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Total</th>
+                        <th>Payment</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                    <tr>
+                        <td><code style="font-size:.78rem;background:#e0e7ff;padding:.2rem .5rem;border-radius:.3rem;">{{ booking.booking_reference }}</code></td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <span style="width:28px;height:28px;background:linear-gradient(135deg,#4f46e5,#818cf8);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.75rem;font-weight:700;">{{ booking.user.username|slice:":1"|upper }}</span>
+                                {{ booking.user.username }}
+                            </div>
+                        </td>
+                        <td>{{ booking.room.name }}</td>
+                        <td>{{ booking.check_in|date:"M d, Y" }}</td>
+                        <td>{{ booking.check_out|date:"M d, Y" }}</td>
+                        <td class="fw-bold">${{ booking.total_price }}</td>
+                        <td class="small text-muted">{{ booking.get_payment_method_display }}</td>
+                        <td>
+                            <span class="badge-status {% if booking.status == 'confirmed' %}badge-confirmed{% elif booking.status == 'pending' %}badge-pending{% else %}badge-cancelled{% endif %}">
+                                {{ booking.get_status_display }}
+                            </span>
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-outline-primary" href="{% url 'admin_booking_update_status' booking.id %}">
+                                <i class="bi bi-pencil me-1"></i>Update
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="9">
+                        <div class="empty-state">
+                            <i class="bi bi-inbox"></i>
+                            <h6 class="fw-bold text-secondary">No Bookings Found</h6>
+                            <p>Try a different status filter.</p>
+                        </div>
+                    </td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
