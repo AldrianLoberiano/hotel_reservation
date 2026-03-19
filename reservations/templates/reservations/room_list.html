@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}Browse Rooms | StaySmart{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero mb-4">
+    <div class="hero-orb"></div>
+    <div class="hero-orb-2"></div>
+    <div class="row align-items-center position-relative">
+        <div class="col-lg-7">
+            <p class="text-white mb-2" style="font-size:.85rem;opacity:.75;text-transform:uppercase;letter-spacing:.1em;font-weight:600;"><i class="bi bi-stars me-1"></i>Premium Accommodations</p>
+            <h1 class="display-5 fw-bold mb-3">Find Your Perfect Stay</h1>
+            <p class="lead mb-0">Browse rooms by type, price, and capacity.<br>Book securely in just a few clicks.</p>
+        </div>
+        <div class="col-lg-5 d-none d-lg-flex justify-content-end">
+            <div style="font-size:7rem;opacity:.15;line-height:1;"><i class="bi bi-building-check"></i></div>
+        </div>
+    </div>
+</section>
+
+<!-- Filter Bar -->
+<div class="filter-bar mb-4">
+    <form method="get" class="row g-3 align-items-end">
+        <div class="col-md-4">
+            <label class="form-label"><i class="bi bi-tag me-1"></i>Room Type</label>
+            {{ filter_form.room_type }}
+        </div>
+        <div class="col-md-3">
+            <label class="form-label"><i class="bi bi-cash me-1"></i>Max Price / Night</label>
+            {{ filter_form.max_price }}
+        </div>
+        <div class="col-md-3">
+            <label class="form-label"><i class="bi bi-people me-1"></i>Min Capacity</label>
+            {{ filter_form.capacity }}
+        </div>
+        <div class="col-md-2 d-grid">
+            <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Search</button>
+        </div>
+    </form>
+</div>
+
+<!-- Room Grid -->
+<div class="row g-4">
+    {% for room in rooms %}
+    <div class="col-md-6 col-lg-4">
+        <div class="card card-hover h-100 border-0 overflow-hidden">
+            {% if room.image %}
+                <img src="{{ room.image.url }}" class="room-image" alt="{{ room.name }}">
+            {% else %}
+                <div class="room-image placeholder-bg d-flex align-items-center justify-content-center flex-column gap-1">
+                    <i class="bi bi-image fs-2 opacity-50"></i>
+                    <span>No Photo</span>
+                </div>
+            {% endif %}
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title mb-0 fw-700">{{ room.name }}</h5>
+                    <span class="room-type-badge">{{ room.get_room_type_display }}</span>
+                </div>
+
+                <div class="d-flex gap-3 text-muted small mb-2">
+                    <span><i class="bi bi-people me-1"></i>{{ room.capacity }} guest{{ room.capacity|pluralize }}</span>
+                </div>
+
+                {% if room.avg_rating %}
+                <div class="d-flex align-items-center gap-1 mb-2">
+                    <span class="stars-sm">
+                        {% with r=room.avg_rating|floatformat:0 %}
+                            {% for i in "12345" %}{% if forloop.counter <= r|add:"0" %}★{% else %}☆{% endif %}{% endfor %}
+                        {% endwith %}
+                    </span>
+                    <span class="rating-count">{{ room.avg_rating|floatformat:1 }}/5</span>
+                </div>
+                {% else %}
+                <p class="small text-muted mb-2"><i class="bi bi-chat-square me-1"></i>No reviews yet</p>
+                {% endif %}
+
+                <div class="room-price mt-auto">${{ room.price }}<small> / night</small></div>
+            </div>
+            <div class="card-footer bg-transparent border-top border-light p-3">
+                <a href="{% url 'room_detail' room.id %}" class="btn btn-primary w-100">
+                    <i class="bi bi-eye me-1"></i>View &amp; Book
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="empty-state">
+            <i class="bi bi-door-closed"></i>
+            <h5 class="fw-bold text-secondary">No Rooms Found</h5>
+            <p>Try adjusting your filters to find available rooms.</p>
+            <a href="{% url 'room_list' %}" class="btn btn-outline-primary btn-sm">Clear Filters</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
