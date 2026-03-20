@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Browse Rooms | StaySmart{% endblock %}
 
@@ -45,14 +46,11 @@
     {% for room in rooms %}
     <div class="col-md-6 col-lg-4">
         <div class="card card-hover h-100 border-0 overflow-hidden">
-            {% if room.image %}
-                <img src="{{ room.image.url }}" class="room-image" alt="{{ room.name }}">
-            {% else %}
-                <div class="room-image placeholder-bg d-flex align-items-center justify-content-center flex-column gap-1">
-                    <i class="bi bi-image fs-2 opacity-50"></i>
-                    <span>No Photo</span>
-                </div>
-            {% endif %}
+            <img
+                src="{% if room.image %}{{ room.image.url }}{% else %}{% static 'images/ocean_view_suite.jpg' %}{% endif %}"
+                class="room-image"
+                alt="{{ room.name }}"
+            >
             <div class="card-body p-3">
                 <div class="d-flex justify-content-between align-items-start mb-2">
                     <h5 class="card-title mb-0 fw-700">{{ room.name }}</h5>
