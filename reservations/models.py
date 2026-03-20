@@ -81,6 +81,10 @@ class Booking(models.Model):
         return (self.check_out - self.check_in).days
 
     def clean(self) -> None:
+        # ModelForm validation can run before related objects are assigned.
+        if not self.room_id or not self.check_in or not self.check_out:
+            return
+
         if self.check_in >= self.check_out:
             raise ValidationError("Check-out date must be after check-in date.")
 
