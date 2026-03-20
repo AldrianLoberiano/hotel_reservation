@@ -21,9 +21,23 @@
             {% csrf_token %}
             {% for field in form %}
             <div class="mb-3">
+                {% if field.name == 'image' and form.instance.image %}
+                    <div class="mb-2">
+                        <p class="form-text mb-2">Current Photo</p>
+                        <img src="{{ form.instance.image.url }}" alt="Current room photo" class="img-fluid rounded border" style="max-height: 180px; object-fit: cover;">
+                    </div>
+                {% endif %}
+
+                {% if field.name == 'delete_image' %}
+                    {{ field }}
+                    <label class="btn btn-outline-danger btn-sm" for="{{ field.id_for_label }}">Delete Current Photo</label>
+                    <div class="form-text">Click this and save to remove the existing photo.</div>
+                {% else %}
                 <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
                 {{ field }}
-                {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+                    {% if field.help_text %}<div class="form-text">{{ field.help_text }}</div>{% endif %}
+                {% endif %}
+
                 {% for error in field.errors %}
                     <div class="text-danger small mt-1"><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</div>
                 {% endfor %}
