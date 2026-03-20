@@ -6,40 +6,53 @@
 
 {% block content %}
 <section class="auth-shell">
-<div class="auth-card auth-card-enhanced">
-    <p class="auth-eyebrow mb-2">Welcome to CozyStay</p>
-    <div class="auth-icon"><i class="bi bi-person-fill"></i></div>
-    <h2 class="text-center fw-bold mb-1" style="font-size:1.45rem;">Sign In to Your Account</h2>
-    <p class="text-center text-muted small mb-4">Manage bookings, track reservations, and explore premium room deals.</p>
-
-    <form method="post" class="auth-form" novalidate>
-        {% csrf_token %}
-        {% for field in form %}
-        <div class="mb-3 auth-field">
-            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-            {{ field }}
-            {% if field.errors %}
-                {% for error in field.errors %}
-                    <div class="text-danger small mt-1"><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</div>
-                {% endfor %}
-            {% endif %}
+<div class="auth-layout">
+    <aside class="auth-visual auth-visual-login">
+        <div class="auth-visual-content">
+            <p class="auth-visual-kicker mb-2">CozyStay</p>
+            <h3 class="auth-visual-title mb-2">Your next comfortable stay starts here.</h3>
+            <p class="auth-visual-text mb-0">Secure bookings, premium rooms, and fast confirmations in one place.</p>
         </div>
-        {% endfor %}
-        {% if form.non_field_errors %}
-            <div class="alert alert-danger d-flex align-items-center gap-2 mb-3">
-                <i class="bi bi-exclamation-triangle-fill flex-shrink-0"></i>
-                <span>{{ form.non_field_errors.0 }}</span>
-            </div>
-        {% endif %}
-        <button class="btn btn-primary w-100 py-2 mt-1 auth-submit" type="submit">
-            <i class="bi bi-box-arrow-in-right me-1"></i>Sign In
-        </button>
-    </form>
+    </aside>
 
-    <div class="auth-divider"><span>New to CozyStay?</span></div>
-    <p class="text-center text-muted small mb-0">
-        <a href="{% url 'register' %}" class="fw-semibold text-brand">Create one free</a>
-    </p>
+    <div class="auth-card auth-card-enhanced">
+        <a href="{% url 'room_list' %}" class="btn btn-outline-primary btn-sm auth-home-btn">
+            <i class="bi bi-house-door me-1"></i>Back to Home
+        </a>
+        <p class="auth-eyebrow mb-2">Welcome to CozyStay</p>
+        <div class="auth-icon"><i class="bi bi-person-fill"></i></div>
+        <h2 class="text-center fw-bold mb-1" style="font-size:1.45rem;">Sign In to Your Account</h2>
+        <p class="text-center text-muted small mb-4">Manage bookings, track reservations, and explore premium room deals.</p>
+
+        <form method="post" class="auth-form" novalidate>
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3 auth-field">
+                <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div class="text-danger small mt-1"><i class="bi bi-exclamation-circle me-1"></i>{{ error }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger d-flex align-items-center gap-2 mb-3">
+                    <i class="bi bi-exclamation-triangle-fill flex-shrink-0"></i>
+                    <span>{{ form.non_field_errors.0 }}</span>
+                </div>
+            {% endif %}
+            <button class="btn btn-primary w-100 py-2 mt-1 auth-submit" type="submit">
+                <i class="bi bi-box-arrow-in-right me-1"></i>Sign In
+            </button>
+        </form>
+
+        <div class="auth-divider"><span>New to CozyStay?</span></div>
+        <p class="text-center text-muted small mb-0">
+            <a href="{% url 'register' %}" class="fw-semibold text-brand">Create one free</a>
+        </p>
+    </div>
 </div>
 </section>
 {% endblock %}
