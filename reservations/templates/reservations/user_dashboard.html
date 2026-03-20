@@ -32,7 +32,7 @@
     <div class="col-md-4">
         <div class="stat-card stat-dark">
             <div class="stat-icon"><i class="bi bi-cash-stack"></i></div>
-            <div class="stat-value">${{ stats.spent }}</div>
+            <div class="stat-value">₱{{ stats.spent }}</div>
             <div class="stat-label">Confirmed Spend</div>
         </div>
     </div>
@@ -67,7 +67,7 @@
                         <td>{{ booking.check_in|date:"M d, Y" }}</td>
                         <td>{{ booking.check_out|date:"M d, Y" }}</td>
                         <td><span class="badge bg-light text-dark border">{{ booking.nights }}n</span></td>
-                        <td class="fw-bold">${{ booking.total_price }}</td>
+                        <td class="fw-bold">₱{{ booking.total_price }}</td>
                         <td class="small text-muted">{{ booking.get_payment_method_display }}</td>
                         <td>
                             <span class="badge-status {% if booking.status == 'confirmed' %}badge-confirmed{% elif booking.status == 'pending' %}badge-pending{% else %}badge-cancelled{% endif %}">
