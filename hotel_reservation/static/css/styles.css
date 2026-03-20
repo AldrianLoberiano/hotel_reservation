@@ -156,26 +156,6 @@ body {
 .hero-carousel-indicators .active {
   background-color: #fff;
 }
-.hero-carousel-control {
-  width: 44px;
-  height: 44px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(15, 23, 42, .36);
-  border-radius: 50%;
-  margin: 0 .8rem;
-  opacity: .85;
-  z-index: 4;
-}
-.hero-carousel-control:hover {
-  opacity: 1;
-  background: rgba(15, 23, 42, .56);
-}
-.hero-carousel-control .carousel-control-prev-icon,
-.hero-carousel-control .carousel-control-next-icon {
-  width: 1.1rem;
-  height: 1.1rem;
-}
 .hero-bg-carousel .carousel-inner,
 .hero-bg-carousel .carousel-item {
   height: 100%;
@@ -496,11 +476,6 @@ body {
   .hero {
     padding: 2.35rem 1.25rem;
     min-height: 280px;
-  }
-  .hero-carousel-control {
-    width: 36px;
-    height: 36px;
-    margin: 0 .45rem;
   }
   .stat-card .stat-value { font-size: 1.6rem; }
   .auth-card { margin: 1.5rem auto; padding: 1.75rem 1.25rem; }
