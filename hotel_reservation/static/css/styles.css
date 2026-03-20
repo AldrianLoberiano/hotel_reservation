@@ -553,6 +553,17 @@ body {
   height: 4px;
   background: linear-gradient(90deg, #1b4f9a, #d8a320);
 }
+.auth-shell-center {
+  max-width: 560px;
+}
+.auth-card-login {
+  margin: 2.2rem auto;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+}
+.auth-card-login::before {
+  display: none;
+}
 .auth-eyebrow {
   font-size: .72rem;
   text-transform: uppercase;
@@ -738,4 +749,7 @@ body {
     padding: 1.25rem;
   }
   .auth-card { margin: 0; padding: 1.75rem 1.25rem; }
+  .auth-card-login {
+    margin: 1.2rem auto;
+  }
 }
