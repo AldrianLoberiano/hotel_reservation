@@ -37,6 +37,10 @@ class BookingCreateForm(forms.ModelForm):
 
 
 class RoomForm(forms.ModelForm):
+    delete_image = forms.BooleanField(required=False, label="Delete current photo")
+
+    FIELD_ORDER = ["name", "room_type", "price", "capacity", "availability", "image", "delete_image", "description"]
+
     class Meta:
         model = Room
         fields = ["name", "room_type", "price", "capacity", "availability", "image", "description"]
@@ -46,9 +50,42 @@ class RoomForm(forms.ModelForm):
             "price": forms.NumberInput(attrs={"class": "form-control", "step": "0.01"}),
             "capacity": forms.NumberInput(attrs={"class": "form-control"}),
             "availability": forms.CheckboxInput(attrs={"class": "form-check-input"}),
-            "image": forms.ClearableFileInput(attrs={"class": "form-control"}),
+            "image": forms.FileInput(attrs={"class": "form-control"}),
             "description": forms.Textarea(attrs={"class": "form-control", "rows": 4}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["delete_image"].widget.attrs.update({"class": "btn-check"})
+
+        if not self.instance.pk or not self.instance.image:
+            self.fields.pop("delete_image")
+
+        self.order_fields([name for name in self.FIELD_ORDER if name in self.fields])
+
+    def save(self, commit=True):
+        existing_image = None
+        if self.instance.pk:
+            existing_image = Room.objects.filter(pk=self.instance.pk).values_list("image", flat=True).first()
+
+        room = super().save(commit=False)
+        delete_requested = self.cleaned_data.get("delete_image", False)
+        replaced_image = bool(existing_image and self.cleaned_data.get("image") and str(existing_image) != str(room.image.name))
+        image_storage = room._meta.get_field("image").storage
+
+        if delete_requested:
+            if existing_image:
+                image_storage.delete(existing_image)
+            room.image = None
+
+        if commit:
+            room.save()
+            self.save_m2m()
+
+        if replaced_image:
+            image_storage.delete(existing_image)
+
+        return room
 
 
 class BookingStatusForm(forms.ModelForm):
