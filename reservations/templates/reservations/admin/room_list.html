@@ -39,7 +39,7 @@
                     <tr>
                         <td class="fw-600">{{ room.name }}</td>
                         <td><span class="room-type-badge">{{ room.get_room_type_display }}</span></td>
-                        <td class="fw-bold">${{ room.price }}</td>
+                        <td class="fw-bold">₱{{ room.price }}</td>
                         <td><i class="bi bi-people me-1 text-muted"></i>{{ room.capacity }}</td>
                         <td>
                             {% if room.availability %}
