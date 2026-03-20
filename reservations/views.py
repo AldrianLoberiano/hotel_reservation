@@ -164,6 +164,17 @@ def admin_room_create(request):
 @staff_member_required
 def admin_room_update(request, room_id):
     room = get_object_or_404(Room, pk=room_id)
+
+    if request.method == "POST" and request.POST.get("delete_photo") == "1":
+        if room.image:
+            room.image.delete(save=False)
+            room.image = None
+            room.save(update_fields=["image", "updated_at"])
+            messages.success(request, "Room photo deleted.")
+        else:
+            messages.info(request, "This room has no photo to delete.")
+        return redirect("admin_room_update", room_id=room.id)
+
     if request.method == "POST":
         form = RoomForm(request.POST, request.FILES, instance=room)
         if form.is_valid():
