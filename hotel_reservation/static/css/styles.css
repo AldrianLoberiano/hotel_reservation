@@ -229,6 +229,48 @@ body {
   color: var(--text-secondary);
 }
 
+.discount-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(110deg, #1e1b4b, #0f766e);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255,255,255,.15);
+  box-shadow: var(--shadow-md);
+  color: #fff;
+  padding: 1.15rem 1.3rem;
+}
+.discount-badge {
+  background: rgba(255,255,255,.2);
+  border: 1px solid rgba(255,255,255,.28);
+  color: #fff;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 2rem;
+  padding: .35rem .75rem;
+  white-space: nowrap;
+}
+.discount-content {
+  flex: 1;
+  min-width: 0;
+}
+.discount-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -.3px;
+}
+.discount-text {
+  font-size: .9rem;
+  color: rgba(255,255,255,.88);
+}
+.discount-cta {
+  white-space: nowrap;
+  font-weight: 700;
+  color: var(--brand-900);
+}
+
 /* ---------- Cards ---------- */
 .card {
   border-radius: var(--radius-md);
@@ -410,8 +452,7 @@ body {
 
 /* ---------- Booking Card Sticky ---------- */
 .booking-sidebar {
-  position: sticky;
-  top: 5.5rem;
+  position: static;
 }
 
 /* ---------- Review Stars Input ---------- */
@@ -534,6 +575,14 @@ body {
   .hero h1 { font-size: 2rem; }
   .hero-metric-item {
     min-width: calc(50% - .5rem);
+  }
+  .discount-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+  .discount-cta {
+    width: 100%;
   }
   .stat-card .stat-value { font-size: 1.6rem; }
   .auth-card { margin: 1.5rem auto; padding: 1.75rem 1.25rem; }
