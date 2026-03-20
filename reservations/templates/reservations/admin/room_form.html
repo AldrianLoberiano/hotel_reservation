@@ -30,8 +30,16 @@
 
                 {% if field.name == 'delete_image' %}
                     {{ field }}
-                    <label class="btn btn-outline-danger btn-sm" for="{{ field.id_for_label }}">Delete Current Photo</label>
-                    <div class="form-text">Click this and save to remove the existing photo.</div>
+                    <label class="btn btn-outline-danger btn-sm" for="{{ field.id_for_label }}">Mark Photo for Removal on Save</label>
+                    <div class="form-text">Toggle this and click Save Room to remove the current photo while updating details.</div>
+
+                    {% if form.instance.pk and form.instance.image %}
+                    <div class="mt-2">
+                        <button class="btn btn-danger btn-sm" type="submit" name="delete_photo" value="1" onclick="return confirm('Delete the current room photo?');">
+                            Delete Current Photo Now
+                        </button>
+                    </div>
+                    {% endif %}
                 {% else %}
                 <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
                 {{ field }}
