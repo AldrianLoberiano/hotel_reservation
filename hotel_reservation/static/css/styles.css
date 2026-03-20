@@ -238,6 +238,101 @@ body {
   color: var(--text-secondary);
 }
 
+.section-kicker {
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--brand-700);
+}
+
+.about-shell {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 1.35rem 1.4rem;
+}
+.about-title {
+  font-size: 1.42rem;
+  font-weight: 800;
+  letter-spacing: -.35px;
+  color: var(--text-primary);
+}
+.about-text {
+  color: var(--text-secondary);
+  max-width: 62ch;
+}
+.about-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .6rem;
+}
+.about-fact-item {
+  background: #f8fbff;
+  border: 1px solid #dbe5f1;
+  border-radius: .75rem;
+  padding: .7rem .75rem;
+  display: flex;
+  flex-direction: column;
+  gap: .1rem;
+}
+.about-fact-value {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--brand-700);
+  line-height: 1.15;
+}
+.about-fact-label {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.services-title {
+  font-size: 1.26rem;
+  font-weight: 800;
+  letter-spacing: -.3px;
+  color: var(--text-primary);
+}
+.service-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 1rem .95rem;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+.service-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: .65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #eef2ff;
+  border: 1px solid #d7ddff;
+  color: var(--brand-700);
+  font-size: 1.15rem;
+  margin-bottom: .7rem;
+}
+.service-name {
+  font-size: .97rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: .35rem;
+}
+.service-text {
+  font-size: .86rem;
+  color: var(--text-secondary);
+}
+
 .discount-banner {
   display: flex;
   align-items: center;
@@ -754,6 +849,9 @@ body {
   }
   .discount-cta {
     width: 100%;
+  }
+  .about-facts {
+    grid-template-columns: 1fr;
   }
   .stat-card .stat-value { font-size: 1.6rem; }
   .auth-layout {
