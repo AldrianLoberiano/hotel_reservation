@@ -150,22 +150,22 @@ body {
 .hero-bg-slide-1 {
   background-image:
     linear-gradient(120deg, rgba(79,70,229,.48), rgba(13,148,136,.32)),
-    url("../images/carousel/family_room_suite.jpg");
+    url("../images/carousel/family_bunk_room.webp");
 }
 .hero-bg-slide-2 {
   background-image:
     linear-gradient(130deg, rgba(30,27,75,.52), rgba(79,70,229,.34)),
-    url("../images/carousel/ocean_view_suite.jpg");
+    url("../images/carousel/Deluxe_Garden_Room.webp");
 }
 .hero-bg-slide-3 {
   background-image:
     linear-gradient(135deg, rgba(15,23,42,.5), rgba(13,148,136,.3)),
-    url("../images/carousel/standard_economy_room.webp");
+    url("../images/carousel/king_deluxe_room.webp");
 }
 .hero-bg-slide-4 {
   background-image:
     linear-gradient(138deg, rgba(30,27,75,.5), rgba(13,148,136,.34)),
-    url("../images/carousel/standard_twin_room.webp");
+    url("../images/carousel/Presidential_Suite_Master_Bedroom.webp");
 }
 .hero-overlay {
   position: absolute; inset: 0;
