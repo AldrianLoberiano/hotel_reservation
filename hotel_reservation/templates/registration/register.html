@@ -6,10 +6,21 @@
 
 {% block content %}
 <section class="auth-shell">
-    <div class="auth-card">
+<div class="auth-layout">
+    <aside class="auth-visual auth-visual-register">
+        <div class="auth-visual-content">
+            <p class="auth-visual-kicker mb-2">Create CozyStay Account</p>
+            <h3 class="auth-visual-title mb-2">Unlock exclusive member rates.</h3>
+            <p class="auth-visual-text mb-0">Join now to manage all your bookings and get personalized room recommendations.</p>
+        </div>
+    </aside>
+
+    <div class="auth-card auth-card-enhanced">
         <a href="{% url 'room_list' %}" class="btn btn-outline-primary btn-sm auth-home-btn">
             <i class="bi bi-house-door me-1"></i>Back to Home
         </a>
+        <p class="auth-eyebrow mb-2">Start Your Journey</p>
+        <div class="auth-icon" style="background:linear-gradient(135deg,#0d9488,#2dd4bf);"><i class="bi bi-person-plus-fill"></i></div>
         <h2 class="text-center fw-bold mb-1" style="font-size:1.45rem;">Create Your Account</h2>
         <p class="text-center text-muted small mb-4">Join CozyStay and start booking premium rooms in minutes.</p>
 
@@ -39,5 +50,6 @@
             <a href="{% url 'login' %}" class="fw-semibold text-brand">Sign in</a>
         </p>
     </div>
+</div>
 </section>
 {% endblock %}
