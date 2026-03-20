@@ -123,7 +123,7 @@
                 <p class="small text-muted mb-2">No reviews yet</p>
                 {% endif %}
 
-                <div class="room-price mt-auto">${{ room.price }}<small> / night</small></div>
+                <div class="room-price mt-auto">₱{{ room.price }}<small> / night</small></div>
             </div>
             <div class="card-footer bg-transparent border-top border-light p-3">
                 <a href="{% url 'room_detail' room.id %}" class="btn btn-primary w-100">
