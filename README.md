@@ -1,90 +1,93 @@
-# Hotel Reservation System (Django)
+# CozyStay Hotel Reservation System
 
-A full-stack web-based Hotel Reservation System built with Django.
+Web-based hotel reservation platform built with Django, Bootstrap, and Django REST Framework.
 
-## Login Credentials
+## What Is Included
 
-### Admin Account
-- **Username:** `admin`
-- **Password:** `admin123`
-- Admin Dashboard: `http://127.0.0.1:8000/admin-dashboard/`
-- Django Admin: `http://127.0.0.1:8000/django-admin/`
-
-### Regular User Account
-- **Username:** `guest`
-- **Password:** `guest123`
-
-> To seed sample data (rooms, bookings, reviews), run:
-> ```powershell
-> .\.venv\Scripts\Activate.ps1
-> python manage.py seed_data
-> ```
-
-## Features
-
-- User registration and authentication
-- Room browsing with filters: type, max price, capacity
-- Room details with image, rating/reviews, and booking form
-- Live price preview (auto-calculates total as you pick dates)
-- Booking with check-in/check-out, overlap validation, status tracking
-- User dashboard with booking history
-- Admin dashboard with room CRUD, booking management, and revenue reports
-- Calendar view for room availability (FullCalendar)
-- Payment method selection (Pay at Hotel, GCash, PayMongo)
+- Public room browsing page with hero carousel background
+- About and Services sections on the homepage
+- Room filtering by room type, max price, and capacity
+- Room details page with booking form and reviews
+- Booking overlap validation and booking status flow
+- User dashboard and booking cancellation flow
+- Admin dashboard, booking management, room management, and reports
+- Calendar availability view
 - REST API for rooms and bookings
+
+## Authentication Behavior
+
+- Regular users are redirected to `room_list` after login.
+- Staff/admin users are redirected directly to `admin_dashboard` after login.
+- If a `next` query param is present, it is respected.
+
+## Demo Credentials (Seed Data)
+
+### Admin account
+
+- Username: `admin`
+- Password: `admin123`
+- Admin dashboard: `http://127.0.0.1:8000/admin-dashboard/`
+- Django admin: `http://127.0.0.1:8000/django-admin/`
+
+### Regular user account
+
+- Username: `guest`
+- Password: `guest123`
 
 ## Tech Stack
 
-- Python + Django
+- Python
+- Django
 - Django REST Framework
-- SQLite (default)
 - Bootstrap 5 + custom CSS
+- SQLite (default)
 
-## Setup (Windows PowerShell)
+## Project Setup (Windows PowerShell)
 
-1. Create and activate virtual environment:
+1. Create and activate a virtual environment.
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 
-2. Install dependencies:
+2. Install dependencies.
 
 ```powershell
 pip install -r requirements.txt
 ```
 
-3. Run migrations:
+3. Apply migrations.
 
 ```powershell
 python manage.py migrate
 ```
 
-4. Seed sample data (creates admin, guest user, rooms, bookings, reviews):
+4. Seed sample data (users, rooms, bookings, reviews).
 
 ```powershell
 python manage.py seed_data
 ```
 
-5. Start the server:
+5. Run the development server.
 
 ```powershell
 python manage.py runserver
 ```
 
-6. Open in browser:
+## Main Routes
 
-- Browse Rooms: `http://127.0.0.1:8000/rooms/`
+- Home: `http://127.0.0.1:8000/`
+- Rooms: `http://127.0.0.1:8000/rooms/`
 - Login: `http://127.0.0.1:8000/accounts/login/`
-- User Dashboard: `http://127.0.0.1:8000/dashboard/`
-- Admin Dashboard: `http://127.0.0.1:8000/admin-dashboard/`
-- API Root: `http://127.0.0.1:8000/api/`
+- User dashboard: `http://127.0.0.1:8000/dashboard/`
+- Admin dashboard: `http://127.0.0.1:8000/admin-dashboard/`
+- API root: `http://127.0.0.1:8000/api/`
 
 ## API Endpoints
 
-- `GET /api/rooms/` — list available rooms
-- `GET /api/rooms/{id}/` — room details
-- `GET /api/bookings/` — list user bookings (staff sees all)
-- `POST /api/bookings/` — create booking
-- `PATCH /api/bookings/{id}/` — update booking
+- `GET /api/rooms/` - List available rooms
+- `GET /api/rooms/{id}/` - Room details
+- `GET /api/bookings/` - List user bookings (staff sees all)
+- `POST /api/bookings/` - Create booking
+- `PATCH /api/bookings/{id}/` - Update booking
