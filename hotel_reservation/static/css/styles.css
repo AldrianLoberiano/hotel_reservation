@@ -482,7 +482,11 @@ body {
 }
 .auth-shell {
   max-width: 980px;
+  min-height: calc(100vh - 3rem);
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .auth-layout {
   display: grid;
@@ -492,6 +496,7 @@ body {
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border);
   background: #fff;
+  width: 100%;
 }
 .auth-visual {
   min-height: 100%;
