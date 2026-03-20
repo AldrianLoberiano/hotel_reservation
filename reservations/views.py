@@ -4,12 +4,27 @@ from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
 from django.db.models import Avg, Count, Q, Sum
 from django.http import JsonResponse
+from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import BookingCreateForm, BookingStatusForm, RegisterForm, ReviewForm, RoomFilterForm, RoomForm
 from .models import Booking, Room
+
+
+class RoleBasedLoginView(LoginView):
+    template_name = "registration/login.html"
+
+    def get_success_url(self):
+        # Keep Django's `next` redirect behavior when present.
+        redirect_to = self.get_redirect_url()
+        if redirect_to:
+            return redirect_to
+        if self.request.user.is_staff:
+            return reverse("admin_dashboard")
+        return reverse("room_list")
 
 
 def home(request):
