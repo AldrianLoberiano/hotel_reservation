@@ -5,8 +5,17 @@
 {% block footer %}{% endblock %}
 
 {% block content %}
-<section class="auth-shell auth-shell-center">
-    <div class="auth-card auth-card-enhanced auth-card-login">
+<section class="auth-shell">
+<div class="auth-layout">
+    <aside class="auth-visual auth-visual-login">
+        <div class="auth-visual-content">
+            <p class="auth-visual-kicker mb-2">CozyStay</p>
+            <h3 class="auth-visual-title mb-2">Your next comfortable stay starts here.</h3>
+            <p class="auth-visual-text mb-0">Secure bookings, premium rooms, and fast confirmations in one place.</p>
+        </div>
+    </aside>
+
+    <div class="auth-card auth-card-enhanced">
         <a href="{% url 'room_list' %}" class="btn btn-outline-primary btn-sm auth-home-btn">
             <i class="bi bi-house-door me-1"></i>Back to Home
         </a>
@@ -42,5 +51,6 @@
             <a href="{% url 'register' %}" class="fw-semibold text-brand">Create one free</a>
         </p>
     </div>
+</div>
 </section>
 {% endblock %}
