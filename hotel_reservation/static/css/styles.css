@@ -197,6 +197,52 @@ body {
 .hero .row.position-relative { z-index: 3; }
 .hero h1 { font-weight: 800; letter-spacing: -.5px; line-height: 1.15; }
 .hero .lead { opacity: .85; font-weight: 400; }
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+}
+.btn-hero-primary,
+.btn-hero-secondary {
+  padding: .6rem 1.1rem;
+  font-weight: 600;
+}
+.hero-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+}
+.hero-metric-item {
+  min-width: 130px;
+  background: rgba(255,255,255,.14);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: .7rem;
+  padding: .55rem .75rem;
+  backdrop-filter: blur(2px);
+}
+.hero-metric-value {
+  font-size: 1.1rem;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #fff;
+}
+.hero-metric-label {
+  font-size: .74rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.78);
+}
+
+.trust-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: .95rem 1.1rem;
+  font-size: .9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
 
 /* ---------- Cards ---------- */
 .card {
@@ -244,7 +290,14 @@ body {
   height: 210px;
   object-fit: cover;
   border-radius: var(--radius-md) var(--radius-md) 0 0;
+  transition: transform .45s ease;
 }
+.room-card { transition: transform .25s ease, box-shadow .25s ease; }
+.room-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+.room-card:hover .room-image { transform: scale(1.04); }
 .detail-image {
   width: 100%;
   max-height: 400px;
@@ -430,6 +483,22 @@ body {
   box-shadow: var(--shadow-sm);
   padding: 1.25rem 1.5rem;
 }
+.filter-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.room-grid-title {
+  font-size: 1.22rem;
+  font-weight: 800;
+  letter-spacing: -.3px;
+  color: var(--text-primary);
+}
+.room-grid-count {
+  font-size: .86rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
 
 /* ---------- Footer ---------- */
 .site-footer {
@@ -476,6 +545,10 @@ body {
   .hero {
     padding: 2.35rem 1.25rem;
     min-height: 280px;
+  }
+  .hero h1 { font-size: 2rem; }
+  .hero-metric-item {
+    min-width: calc(50% - .5rem);
   }
   .stat-card .stat-value { font-size: 1.6rem; }
   .auth-card { margin: 1.5rem auto; padding: 1.75rem 1.25rem; }
