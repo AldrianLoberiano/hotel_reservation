@@ -82,6 +82,12 @@ body {
   transform: scale(1.65); transform-origin: left center;
   margin-right: .55rem; flex-shrink: 0;
 }
+.navbar-premium .navbar-brand .brand-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  white-space: nowrap;
+}
 .navbar-premium .navbar-brand .brand-word-cozy { color: #1b4f9a; }
 .navbar-premium .navbar-brand .brand-word-stay { color: #d8a320; }
 .navbar-premium .nav-link {
