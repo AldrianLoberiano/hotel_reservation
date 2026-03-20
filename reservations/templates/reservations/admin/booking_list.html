@@ -58,7 +58,7 @@
                         <td>{{ booking.room.name }}</td>
                         <td>{{ booking.check_in|date:"M d, Y" }}</td>
                         <td>{{ booking.check_out|date:"M d, Y" }}</td>
-                        <td class="fw-bold">${{ booking.total_price }}</td>
+                        <td class="fw-bold">₱{{ booking.total_price }}</td>
                         <td class="small text-muted">{{ booking.get_payment_method_display }}</td>
                         <td>
                             <span class="badge-status {% if booking.status == 'confirmed' %}badge-confirmed{% elif booking.status == 'pending' %}badge-pending{% else %}badge-cancelled{% endif %}">
