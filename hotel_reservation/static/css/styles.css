@@ -549,15 +549,6 @@ body {
   border: 0;
   box-shadow: none;
 }
-.auth-card-enhanced::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #1b4f9a, #d8a320);
-}
 .auth-eyebrow {
   font-size: .72rem;
   text-transform: uppercase;
