@@ -73,10 +73,14 @@ body {
   gap: .4rem;
 }
 .navbar-premium .navbar-brand .brand-logo {
-  width: 52px;
-  height: 52px;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
   border-radius: .3rem;
+  transform: scale(1.65);
+  transform-origin: left center;
+  margin-right: .55rem;
+  flex-shrink: 0;
 }
 .navbar-premium .navbar-brand .brand-word-cozy { color: #1b4f9a; }
 .navbar-premium .navbar-brand .brand-word-stay { color: #d8a320; }
