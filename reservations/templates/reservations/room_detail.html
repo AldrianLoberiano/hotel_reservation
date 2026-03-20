@@ -162,7 +162,7 @@
 {% block scripts %}
 <script>
 (function () {
-    const pricePerNight = {{ room.price }};
+    const pricePerNight = Number("{{ room.price|default_if_none:'0'|escapejs }}");
     const checkIn  = document.querySelector('[name="check_in"]');
     const checkOut = document.querySelector('[name="check_out"]');
     const preview  = document.getElementById('price-preview');
