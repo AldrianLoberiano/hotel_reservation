@@ -20,7 +20,7 @@
                         <span class="room-type-badge">{{ room.get_room_type_display }}</span>
                     </div>
                     <div class="text-end">
-                        <div class="room-price">${{ room.price }}<small> / night</small></div>
+                        <div class="room-price">₱{{ room.price }}<small> / night</small></div>
                         {% if room.avg_rating %}
                         <div class="d-flex align-items-center gap-1 justify-content-end mt-1">
                             <span class="stars-sm">{% with r=room.avg_rating|floatformat:0 %}{% for i in "12345" %}{% if forloop.counter <= r|add:"0" %}★{% else %}☆{% endif %}{% endfor %}{% endwith %}</span>
@@ -118,8 +118,8 @@
                         <!-- Price Preview -->
                         <div id="price-preview" class="p-3 rounded-3 mb-3" style="background:#f0f4ff;display:none;">
                             <div class="d-flex justify-content-between small text-muted mb-1">
-                                <span>${{ room.price }} &times; <span id="nights-count">0</span> nights</span>
-                                <span id="total-price" class="fw-bold text-brand">$0</span>
+                                <span>₱{{ room.price }} &times; <span id="nights-count">0</span> nights</span>
+                                <span id="total-price" class="fw-bold text-brand">₱0</span>
                             </div>
                         </div>
 
@@ -174,7 +174,7 @@
         const diff = (new Date(checkOut.value) - new Date(checkIn.value)) / 86400000;
         if (diff <= 0) { preview.style.display = 'none'; return; }
         nightsEl.textContent = diff;
-        totalEl.textContent = '$' + (diff * pricePerNight).toFixed(2);
+        totalEl.textContent = '₱' + (diff * pricePerNight).toFixed(2);
         preview.style.display = 'block';
     }
     checkIn && checkIn.addEventListener('change', updatePreview);
