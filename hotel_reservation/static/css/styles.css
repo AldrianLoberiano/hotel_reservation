@@ -188,18 +188,18 @@ body {
 }
 .hero-bg-slide-1 {
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(45, 212, 191, .35), transparent 45%),
-    linear-gradient(120deg, rgba(79, 70, 229, .75), rgba(13, 148, 136, .55));
+    linear-gradient(120deg, rgba(79, 70, 229, .48), rgba(13, 148, 136, .32)),
+    url("../images/carousel/slide-1.jpg");
 }
 .hero-bg-slide-2 {
   background-image:
-    radial-gradient(circle at 85% 25%, rgba(251, 191, 36, .3), transparent 42%),
-    linear-gradient(130deg, rgba(30, 27, 75, .8), rgba(79, 70, 229, .55));
+    linear-gradient(130deg, rgba(30, 27, 75, .52), rgba(79, 70, 229, .34)),
+    url("../images/carousel/slide-2.jpg");
 }
 .hero-bg-slide-3 {
   background-image:
-    radial-gradient(circle at 30% 75%, rgba(255, 255, 255, .18), transparent 40%),
-    linear-gradient(135deg, rgba(15, 23, 42, .78), rgba(13, 148, 136, .52));
+    linear-gradient(135deg, rgba(15, 23, 42, .5), rgba(13, 148, 136, .3)),
+    url("../images/carousel/slide-3.jpg");
 }
 .hero-overlay {
   position: absolute;
