@@ -130,7 +130,8 @@ body {
 .hero {
   background: var(--brand-900);
   border-radius: var(--radius-lg);
-  padding: 3rem 2.5rem;
+  padding: 4.25rem 3rem;
+  min-height: 360px;
   position: relative;
   overflow: hidden;
   color: #fff;
@@ -492,7 +493,10 @@ body {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 767.98px) {
-  .hero { padding: 2rem 1.25rem; }
+  .hero {
+    padding: 2.35rem 1.25rem;
+    min-height: 280px;
+  }
   .hero-carousel-control {
     width: 36px;
     height: 36px;
