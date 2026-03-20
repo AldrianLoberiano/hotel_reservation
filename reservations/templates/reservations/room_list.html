@@ -4,8 +4,8 @@
 {% block title %}Browse Rooms | CozyStay{% endblock %}
 
 {% block content %}
-<!-- Hero -->
-<section class="hero mb-4">
+<!-- ═══════ HERO ═══════ -->
+<section class="hero mb-5">
     <div id="heroBgCarousel" class="carousel slide carousel-fade hero-bg-carousel" data-bs-ride="carousel" data-bs-interval="4500" aria-label="Hero background slideshow">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -22,108 +22,147 @@
     <div class="hero-overlay"></div>
     <div class="row align-items-center position-relative">
         <div class="col-lg-7">
-            <p class="text-white mb-2" style="font-size:.85rem;opacity:.75;text-transform:uppercase;letter-spacing:.1em;font-weight:600;">Premium Accommodations</p>
-            <h1 class="display-5 fw-bold mb-3">Find Your Perfect Stay</h1>
-            <p class="lead mb-0">Browse rooms by type, price, and capacity.<br>Book securely in just a few clicks.</p>
-            <div class="hero-actions mt-4">
-                <a href="#rooms" class="btn btn-light btn-hero-primary">Browse Rooms</a>
-                <a href="#filter" class="btn btn-outline-light btn-hero-secondary">Customize Search</a>
+            <span class="hero-kicker"><i class="bi bi-stars me-1"></i>Premium Accommodations</span>
+            <h1 class="display-5 fw-bold mb-3">Where Comfort<br>Meets Elegance</h1>
+            <p class="lead mb-4">Discover handpicked rooms tailored for relaxation, business, and family getaways — all with transparent pricing and instant confirmation.</p>
+            <div class="hero-actions">
+                <a href="#rooms" class="btn btn-light btn-hero-primary"><i class="bi bi-search me-1"></i>Browse Rooms</a>
+                <a href="#about" class="btn btn-outline-light btn-hero-secondary"><i class="bi bi-info-circle me-1"></i>Learn More</a>
             </div>
-            <div class="hero-metrics mt-4">
-                <div class="hero-metric-item">
-                    <div class="hero-metric-value">{{ rooms|length }}</div>
-                    <div class="hero-metric-label">Rooms Available</div>
+        </div>
+        <div class="col-lg-5 d-none d-lg-block">
+            <div class="hero-stats-grid">
+                <div class="hero-stat-card">
+                    <div class="hero-stat-number">{{ rooms|length }}</div>
+                    <div class="hero-stat-text">Available Rooms</div>
                 </div>
-                <div class="hero-metric-item">
-                    <div class="hero-metric-value">24/7</div>
-                    <div class="hero-metric-label">Support</div>
+                <div class="hero-stat-card">
+                    <div class="hero-stat-number">4.8<small>/5</small></div>
+                    <div class="hero-stat-text">Guest Rating</div>
                 </div>
-                <div class="hero-metric-item">
-                    <div class="hero-metric-value">100%</div>
-                    <div class="hero-metric-label">Secure Booking</div>
+                <div class="hero-stat-card">
+                    <div class="hero-stat-number">24/7</div>
+                    <div class="hero-stat-text">Front Desk</div>
+                </div>
+                <div class="hero-stat-card">
+                    <div class="hero-stat-number">100%</div>
+                    <div class="hero-stat-text">Secure Booking</div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="trust-strip mb-4">
+<!-- ═══════ TRUST STRIP ═══════ -->
+<section class="trust-strip mb-5">
     <div class="row g-3">
         <div class="col-md-4">
-            <div class="trust-card h-100">Free cancellation on selected rooms</div>
-        </div>
-        <div class="col-md-4">
-            <div class="trust-card h-100">Transparent pricing with no hidden fees</div>
-        </div>
-        <div class="col-md-4">
-            <div class="trust-card h-100">Instant confirmation after checkout</div>
-        </div>
-    </div>
-</section>
-
-<section class="about-section mb-4" id="about">
-    <div class="about-shell">
-        <div class="row g-4 align-items-center">
-            <div class="col-lg-7">
-                <p class="section-kicker mb-2">About CozyStay</p>
-                <h2 class="about-title mb-3">Comfort-driven stays in the heart of the city</h2>
-                <p class="about-text mb-0">
-                    CozyStay is built for travelers who want effortless booking, dependable service, and restful rooms.
-                    From quick business trips to family getaways, we make every stay smooth from check-in to checkout.
-                </p>
+            <div class="trust-card h-100 d-flex align-items-center gap-3">
+                <div class="trust-icon"><i class="bi bi-x-circle"></i></div>
+                <div>
+                    <div class="trust-title">Free Cancellation</div>
+                    <div class="trust-desc">On selected rooms, no questions asked</div>
+                </div>
             </div>
-            <div class="col-lg-5">
-                <div class="about-facts">
-                    <div class="about-fact-item">
-                        <span class="about-fact-value">50+</span>
-                        <span class="about-fact-label">Premium Rooms</span>
-                    </div>
-                    <div class="about-fact-item">
-                        <span class="about-fact-value">10k+</span>
-                        <span class="about-fact-label">Happy Guests</span>
-                    </div>
-                    <div class="about-fact-item">
-                        <span class="about-fact-value">4.8/5</span>
-                        <span class="about-fact-label">Average Rating</span>
-                    </div>
+        </div>
+        <div class="col-md-4">
+            <div class="trust-card h-100 d-flex align-items-center gap-3">
+                <div class="trust-icon trust-icon-teal"><i class="bi bi-tag"></i></div>
+                <div>
+                    <div class="trust-title">Transparent Pricing</div>
+                    <div class="trust-desc">No hidden fees or surprise charges</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="trust-card h-100 d-flex align-items-center gap-3">
+                <div class="trust-icon trust-icon-amber"><i class="bi bi-lightning-charge"></i></div>
+                <div>
+                    <div class="trust-title">Instant Confirmation</div>
+                    <div class="trust-desc">Get your booking confirmed immediately</div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="services-section mb-4" id="services">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-        <div>
-            <p class="section-kicker mb-1">Services</p>
-            <h2 class="services-title mb-0">Everything you need for a seamless stay</h2>
+<!-- ═══════ ABOUT SECTION ═══════ -->
+<section class="about-section mb-5" id="about">
+    <div class="row g-4 align-items-stretch">
+        <div class="col-lg-7">
+            <div class="about-shell h-100">
+                <span class="section-kicker mb-2 d-inline-block"><i class="bi bi-building me-1"></i>About CozyStay</span>
+                <h2 class="about-title mb-3">Comfort-driven stays in the heart of the city</h2>
+                <p class="about-text mb-4">CozyStay is built for travelers who want effortless booking, dependable service, and restful rooms. From quick business trips to family getaways, we make every stay smooth from check-in to checkout.</p>
+                <div class="about-features">
+                    <div class="about-feature-item">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Prime City Location</span>
+                    </div>
+                    <div class="about-feature-item">
+                        <i class="bi bi-award-fill"></i>
+                        <span>Award-Winning Service</span>
+                    </div>
+                    <div class="about-feature-item">
+                        <i class="bi bi-heart-fill"></i>
+                        <span>10,000+ Happy Guests</span>
+                    </div>
+                    <div class="about-feature-item">
+                        <i class="bi bi-shield-check"></i>
+                        <span>Verified & Secure</span>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="col-lg-5 d-flex flex-column gap-3">
+            <div class="about-stat-card about-stat-indigo">
+                <div class="about-stat-number">50+</div>
+                <div class="about-stat-label">Premium Rooms</div>
+            </div>
+            <div class="about-stat-card about-stat-teal">
+                <div class="about-stat-number">10k+</div>
+                <div class="about-stat-label">Happy Guests</div>
+            </div>
+            <div class="about-stat-card about-stat-dark">
+                <div class="about-stat-number">4.8/5</div>
+                <div class="about-stat-label">Average Rating</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════ SERVICES ═══════ -->
+<section class="services-section mb-5" id="services">
+    <div class="text-center mb-4">
+        <span class="section-kicker d-inline-block mb-2"><i class="bi bi-gear me-1"></i>Our Services</span>
+        <h2 class="services-title">Everything you need for a seamless stay</h2>
+        <p class="text-muted" style="max-width:520px;margin:0 auto;">We provide top-tier amenities and support so you can focus on enjoying your trip.</p>
     </div>
     <div class="row g-3">
         <div class="col-md-6 col-lg-3">
-            <div class="service-card h-100">
-                <div class="service-icon"><i class="bi bi-wifi"></i></div>
+            <div class="service-card h-100 text-center">
+                <div class="service-icon mx-auto"><i class="bi bi-wifi"></i></div>
                 <h3 class="service-name">High-Speed Wi-Fi</h3>
                 <p class="service-text mb-0">Reliable internet access in every room and shared area.</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
-            <div class="service-card h-100">
-                <div class="service-icon"><i class="bi bi-cup-hot"></i></div>
+            <div class="service-card h-100 text-center">
+                <div class="service-icon service-icon-teal mx-auto"><i class="bi bi-cup-hot"></i></div>
                 <h3 class="service-name">Daily Breakfast</h3>
                 <p class="service-text mb-0">Fresh local and international options to start your day right.</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
-            <div class="service-card h-100">
-                <div class="service-icon"><i class="bi bi-shield-check"></i></div>
+            <div class="service-card h-100 text-center">
+                <div class="service-icon service-icon-amber mx-auto"><i class="bi bi-shield-check"></i></div>
                 <h3 class="service-name">24/7 Security</h3>
                 <p class="service-text mb-0">Round-the-clock assistance and secure access for peace of mind.</p>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
-            <div class="service-card h-100">
-                <div class="service-icon"><i class="bi bi-car-front"></i></div>
+            <div class="service-card h-100 text-center">
+                <div class="service-icon service-icon-dark mx-auto"><i class="bi bi-car-front"></i></div>
                 <h3 class="service-name">Airport Transfer</h3>
                 <p class="service-text mb-0">Optional pick-up and drop-off service for stress-free travel.</p>
             </div>
@@ -131,20 +170,27 @@
     </div>
 </section>
 
-<section class="discount-banner mb-4" aria-label="Special discount offer">
-    <div class="discount-badge">Limited Time</div>
-    <div class="discount-content">
-        <h2 class="discount-title mb-1">Save 15% on 2+ Night Stays</h2>
-        <p class="discount-text mb-0">Use code <strong>COZYSTAY15</strong> at booking checkout and enjoy your getaway for less.</p>
+<!-- ═══════ PROMO BANNER ═══════ -->
+<section class="promo-banner mb-5" aria-label="Special discount offer">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <span class="promo-badge"><i class="bi bi-clock me-1"></i>Limited Time</span>
+            <h2 class="promo-title mb-1">Save 15% on 2+ Night Stays</h2>
+            <p class="promo-text mb-0">Use code <strong>COZYSTAY15</strong> at booking checkout and enjoy your getaway for less.</p>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+            <a href="#rooms" class="btn btn-light promo-cta"><i class="bi bi-gift me-1"></i>Claim Offer</a>
+        </div>
     </div>
-    <a href="#rooms" class="btn btn-light discount-cta">Claim Offer</a>
 </section>
 
-<!-- Filter Bar -->
+<!-- ═══════ FILTER BAR ═══════ -->
 <div class="filter-bar mb-4" id="filter">
     <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-        <h2 class="filter-title mb-0">Refine Your Search</h2>
-        <a href="{% url 'room_list' %}" class="btn btn-outline-primary btn-sm">Clear Filters</a>
+        <div>
+            <h2 class="filter-title mb-0"><i class="bi bi-funnel me-2"></i>Refine Your Search</h2>
+        </div>
+        <a href="{% url 'room_list' %}" class="btn btn-outline-primary btn-sm"><i class="bi bi-arrow-counterclockwise me-1"></i>Clear</a>
     </div>
     <form method="get" class="row g-3 align-items-end">
         <div class="col-md-4">
@@ -160,54 +206,54 @@
             {{ filter_form.capacity }}
         </div>
         <div class="col-md-2 d-grid">
-            <button class="btn btn-primary" type="submit">Search</button>
+            <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Search</button>
         </div>
     </form>
 </div>
 
-<!-- Room Grid -->
-<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-    <h2 class="room-grid-title mb-0">Available Rooms</h2>
-    <p class="room-grid-count mb-0">{{ rooms|length }} stay{{ rooms|length|pluralize }} found</p>
+<!-- ═══════ ROOM GRID ═══════ -->
+<div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-3" id="rooms">
+    <div>
+        <h2 class="room-grid-title mb-0">Available Rooms</h2>
+        <p class="text-muted small mb-0">{{ rooms|length }} stay{{ rooms|length|pluralize }} found</p>
+    </div>
 </div>
-<div class="row g-4" id="rooms">
+<div class="row g-4">
     {% for room in rooms %}
     <div class="col-md-6 col-lg-4">
         <div class="card room-card h-100 border-0 overflow-hidden">
-            <img
-                src="{% if room.image %}{{ room.image.url }}{% else %}{% static 'images/room-placeholder.svg' %}{% endif %}"
-                class="room-image"
-                alt="{{ room.name }}"
-            >
+            <div class="room-img-wrapper">
+                <img
+                    src="{% if room.image %}{{ room.image.url }}{% else %}{% static 'images/room-placeholder.svg' %}{% endif %}"
+                    class="room-image"
+                    alt="{{ room.name }}"
+                    loading="lazy"
+                >
+                <span class="room-type-badge room-type-float">{{ room.get_room_type_display }}</span>
+            </div>
             <div class="card-body p-3">
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h5 class="card-title mb-0 fw-700">{{ room.name }}</h5>
-                    <span class="room-type-badge">{{ room.get_room_type_display }}</span>
-                </div>
+                <h5 class="card-title mb-1 fw-bold">{{ room.name }}</h5>
 
-                <div class="d-flex gap-3 text-muted small mb-2">
-                    <span>{{ room.capacity }} guest{{ room.capacity|pluralize }}</span>
-                </div>
-
-                {% if room.avg_rating %}
-                <div class="d-flex align-items-center gap-1 mb-2">
-                    <span class="stars-sm">
-                        {% with r=room.avg_rating|floatformat:0 %}
-                            {% for i in "12345" %}{% if forloop.counter <= r|add:"0" %}★{% else %}☆{% endif %}{% endfor %}
-                        {% endwith %}
+                <div class="d-flex align-items-center gap-3 mb-2">
+                    <span class="room-meta"><i class="bi bi-people me-1"></i>{{ room.capacity }} guest{{ room.capacity|pluralize }}</span>
+                    {% if room.avg_rating %}
+                    <span class="room-meta">
+                        <span class="stars-sm">{% with r=room.avg_rating|floatformat:0 %}{% for i in "12345" %}{% if forloop.counter <= r|add:"0" %}★{% else %}☆{% endif %}{% endfor %}{% endwith %}</span>
+                        <span class="rating-count">{{ room.avg_rating|floatformat:1 }}</span>
                     </span>
-                    <span class="rating-count">{{ room.avg_rating|floatformat:1 }}/5</span>
+                    {% endif %}
                 </div>
-                {% else %}
-                <p class="small text-muted mb-2">No reviews yet</p>
+
+                {% if room.description %}
+                <p class="room-desc mb-2">{{ room.description|truncatewords:18 }}</p>
                 {% endif %}
 
-                <div class="room-price mt-auto">₱{{ room.price }}<small> / night</small></div>
-            </div>
-            <div class="card-footer bg-transparent border-top border-light p-3">
-                <a href="{% url 'room_detail' room.id %}" class="btn btn-primary w-100">
-                    View &amp; Book
-                </a>
+                <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                    <div class="room-price">₱{{ room.price }}<small> / night</small></div>
+                    <a href="{% url 'room_detail' room.id %}" class="btn btn-primary btn-sm">
+                        View &amp; Book
+                    </a>
+                </div>
             </div>
         </div>
     </div>
