@@ -5,8 +5,11 @@ from django.templatetags.static import static as static_file
 from django.urls import include, path
 from django.views.generic.base import RedirectView
 
+from reservations.views import RoleBasedLoginView
+
 urlpatterns = [
     path("django-admin/", admin.site.urls),
+    path("accounts/login/", RoleBasedLoginView.as_view(), name="login"),
     path("accounts/", include("django.contrib.auth.urls")),
     path("", include("reservations.urls")),
     path("api/", include("reservations.api.urls")),
