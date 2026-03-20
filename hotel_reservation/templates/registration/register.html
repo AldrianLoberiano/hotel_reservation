@@ -16,9 +16,6 @@
     </aside>
 
     <div class="auth-card auth-card-enhanced">
-        <a href="{% url 'room_list' %}" class="btn btn-outline-primary btn-sm auth-home-btn d-table mx-auto">
-            <i class="bi bi-house-door me-1"></i>Back to Home
-        </a>
         <p class="auth-eyebrow mb-2">Start Your Journey</p>
         <div class="auth-icon" style="background:linear-gradient(135deg,#0d9488,#2dd4bf);"><i class="bi bi-person-plus-fill"></i></div>
         <h2 class="text-center fw-bold mb-1" style="font-size:1.45rem;">Create Your Account</h2>
@@ -43,6 +40,9 @@
             <button class="btn btn-primary w-100 py-2 mt-1 auth-submit" type="submit">
                 <i class="bi bi-person-check me-1"></i>Create Account
             </button>
+            <a href="{% url 'room_list' %}" class="btn btn-outline-primary w-100 mt-2 auth-home-btn">
+                <i class="bi bi-house-door me-1"></i>Back to Home
+            </a>
         </form>
 
         <div class="auth-divider"><span>Already have an account?</span></div>
