@@ -30,38 +30,78 @@
             <p class="text-white mb-2" style="font-size:.85rem;opacity:.75;text-transform:uppercase;letter-spacing:.1em;font-weight:600;">Premium Accommodations</p>
             <h1 class="display-5 fw-bold mb-3">Find Your Perfect Stay</h1>
             <p class="lead mb-0">Browse rooms by type, price, and capacity.<br>Book securely in just a few clicks.</p>
+            <div class="hero-actions mt-4">
+                <a href="#rooms" class="btn btn-light btn-hero-primary">Browse Rooms</a>
+                <a href="#filter" class="btn btn-outline-light btn-hero-secondary">Customize Search</a>
+            </div>
+            <div class="hero-metrics mt-4">
+                <div class="hero-metric-item">
+                    <div class="hero-metric-value">{{ rooms|length }}</div>
+                    <div class="hero-metric-label">Rooms Available</div>
+                </div>
+                <div class="hero-metric-item">
+                    <div class="hero-metric-value">24/7</div>
+                    <div class="hero-metric-label">Support</div>
+                </div>
+                <div class="hero-metric-item">
+                    <div class="hero-metric-value">100%</div>
+                    <div class="hero-metric-label">Secure Booking</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="trust-strip mb-4">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="trust-card h-100">Free cancellation on selected rooms</div>
+        </div>
+        <div class="col-md-4">
+            <div class="trust-card h-100">Transparent pricing with no hidden fees</div>
+        </div>
+        <div class="col-md-4">
+            <div class="trust-card h-100">Instant confirmation after checkout</div>
         </div>
     </div>
 </section>
 
 <!-- Filter Bar -->
-<div class="filter-bar mb-4">
+<div class="filter-bar mb-4" id="filter">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <h2 class="filter-title mb-0">Refine Your Search</h2>
+        <a href="{% url 'room_list' %}" class="btn btn-outline-primary btn-sm">Clear Filters</a>
+    </div>
     <form method="get" class="row g-3 align-items-end">
         <div class="col-md-4">
-            <label class="form-label"><i class="bi bi-tag me-1"></i>Room Type</label>
+            <label class="form-label">Room Type</label>
             {{ filter_form.room_type }}
         </div>
         <div class="col-md-3">
-            <label class="form-label"><i class="bi bi-cash me-1"></i>Max Price / Night</label>
+            <label class="form-label">Max Price / Night</label>
             {{ filter_form.max_price }}
         </div>
         <div class="col-md-3">
-            <label class="form-label"><i class="bi bi-people me-1"></i>Min Capacity</label>
+            <label class="form-label">Min Capacity</label>
             {{ filter_form.capacity }}
         </div>
         <div class="col-md-2 d-grid">
-            <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Search</button>
+            <button class="btn btn-primary" type="submit">Search</button>
         </div>
     </form>
 </div>
 
 <!-- Room Grid -->
-<div class="row g-4">
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+    <h2 class="room-grid-title mb-0">Available Rooms</h2>
+    <p class="room-grid-count mb-0">{{ rooms|length }} stay{{ rooms|length|pluralize }} found</p>
+</div>
+<div class="row g-4" id="rooms">
     {% for room in rooms %}
     <div class="col-md-6 col-lg-4">
-        <div class="card card-hover h-100 border-0 overflow-hidden">
+        <div class="card room-card h-100 border-0 overflow-hidden">
             <img
-                src="{% if room.image %}{{ room.image.url }}{% else %}{% static 'images/ocean_view_suite.jpg' %}{% endif %}"
+                src="{% if room.image %}{{ room.image.url }}{% else %}{% static 'images/room-placeholder.svg' %}{% endif %}"
                 class="room-image"
                 alt="{{ room.name }}"
             >
@@ -72,7 +112,7 @@
                 </div>
 
                 <div class="d-flex gap-3 text-muted small mb-2">
-                    <span><i class="bi bi-people me-1"></i>{{ room.capacity }} guest{{ room.capacity|pluralize }}</span>
+                    <span>{{ room.capacity }} guest{{ room.capacity|pluralize }}</span>
                 </div>
 
                 {% if room.avg_rating %}
@@ -85,14 +125,14 @@
                     <span class="rating-count">{{ room.avg_rating|floatformat:1 }}/5</span>
                 </div>
                 {% else %}
-                <p class="small text-muted mb-2"><i class="bi bi-chat-square me-1"></i>No reviews yet</p>
+                <p class="small text-muted mb-2">No reviews yet</p>
                 {% endif %}
 
                 <div class="room-price mt-auto">${{ room.price }}<small> / night</small></div>
             </div>
             <div class="card-footer bg-transparent border-top border-light p-3">
                 <a href="{% url 'room_detail' room.id %}" class="btn btn-primary w-100">
-                    <i class="bi bi-eye me-1"></i>View &amp; Book
+                    View &amp; Book
                 </a>
             </div>
         </div>
