@@ -36,10 +36,10 @@
                     {% endif %}
                 {% endif %}
                 {% if user.is_staff %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_dashboard' %}"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_room_list' %}"><i class="bi bi-building me-1"></i>Manage Rooms</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_booking_list' %}"><i class="bi bi-calendar-check me-1"></i>Manage Bookings</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_reports' %}"><i class="bi bi-bar-chart me-1"></i>Reports</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_room_list' %}">Manage Rooms</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_booking_list' %}">Manage Bookings</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_reports' %}">Reports</a></li>
                 {% endif %}
             </ul>
             <ul class="navbar-nav ms-auto align-items-center gap-2">
