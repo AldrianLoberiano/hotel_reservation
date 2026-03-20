@@ -70,7 +70,13 @@ body {
   color: #fff !important;
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: .4rem;
+}
+.navbar-premium .navbar-brand .brand-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  border-radius: .3rem;
 }
 .navbar-premium .navbar-brand .brand-word-cozy { color: #1b4f9a; }
 .navbar-premium .navbar-brand .brand-word-stay { color: #d8a320; }
