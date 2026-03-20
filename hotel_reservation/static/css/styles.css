@@ -141,21 +141,6 @@ body {
   inset: 0;
   z-index: 0;
 }
-.hero-carousel-indicators {
-  z-index: 4;
-  gap: .35rem;
-}
-.hero-carousel-indicators [data-bs-target] {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 0;
-  background-color: rgba(255,255,255,.45);
-  opacity: 1;
-}
-.hero-carousel-indicators .active {
-  background-color: #fff;
-}
 .hero-bg-carousel .carousel-inner,
 .hero-bg-carousel .carousel-item {
   height: 100%;
