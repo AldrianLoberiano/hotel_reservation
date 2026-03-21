@@ -125,6 +125,51 @@ body {
   font-size: .86rem; cursor: pointer;
 }
 
+.header-offer-strip {
+  background: linear-gradient(90deg, #1b4f9a 0%, #245eaf 60%, #2d6dbf 100%);
+  border-bottom: 1px solid rgba(255,255,255,.18);
+  color: #fff;
+  padding: .48rem 0;
+}
+.header-offer-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  flex-wrap: wrap;
+}
+.header-offer-badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.13);
+  border-radius: 2rem;
+  padding: .2rem .62rem;
+  font-size: .68rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.header-offer-text {
+  font-size: .84rem;
+  color: rgba(255,255,255,.95);
+}
+.header-offer-link {
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 2rem;
+  padding: .24rem .72rem;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.header-offer-link:hover {
+  color: #1b4f9a;
+  background: #fff;
+}
+
 /* ============================================================
    HERO
    ============================================================ */
@@ -718,4 +763,7 @@ body {
   .auth-layout { grid-template-columns: 1fr; }
   .auth-visual { min-height: 180px; align-items: center; padding: 1.25rem; }
   .auth-card { margin: 0; padding: 1.75rem 1.25rem; }
+  .header-offer-strip { padding: .56rem 0; }
+  .header-offer-copy { gap: .4rem; }
+  .header-offer-text { font-size: .78rem; }
 }
