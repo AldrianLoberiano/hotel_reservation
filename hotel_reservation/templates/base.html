@@ -60,6 +60,16 @@
         </div>
     </div>
 </nav>
+
+<div class="header-offer-strip" role="region" aria-label="Limited time offer">
+    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div class="header-offer-copy">
+            <span class="header-offer-badge"><i class="bi bi-clock me-1"></i>Limited Time</span>
+            <span class="header-offer-text">Save 15% on 2+ Night Stays with code <strong>COZYSTAY15</strong></span>
+        </div>
+        <a href="{% url 'room_list' %}#rooms" class="header-offer-link">Claim Offer</a>
+    </div>
+</div>
 {% endblock %}
 
 <!-- ===== MAIN ===== -->
