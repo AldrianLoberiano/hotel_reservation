@@ -26,10 +26,11 @@
         </button>
         <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
                 {% if not user.is_staff %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'room_list' %}">Rooms</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'room_list' %}#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'room_list' %}#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'room_list' %}#rooms">Rooms</a></li>
                     {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'user_dashboard' %}"><i class="bi bi-grid me-1"></i>My Bookings</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'availability_calendar' %}"><i class="bi bi-calendar3 me-1"></i>Calendar</a></li>
