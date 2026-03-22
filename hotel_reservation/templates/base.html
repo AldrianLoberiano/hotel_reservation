@@ -15,7 +15,7 @@
 
 {% block navbar %}
 <!-- ===== NAVBAR ===== -->
-<nav class="navbar-premium navbar navbar-expand-lg">
+<nav class="navbar-premium navbar navbar-expand-lg{% if not user.is_authenticated %} guest-navbar{% endif %}">
     <div class="container">
         <div class="navbar-brand" role="img" aria-label="CozyStay">
             <img src="{% static 'images/cozystay_logo.png' %}" alt="CozyStay Logo" class="brand-logo">
