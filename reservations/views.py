@@ -5,12 +5,14 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
+from django.conf import settings
 from django.db.models import Avg, Count, Q, Sum
 from django.http import JsonResponse
+from django.core.mail import send_mail
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import BookingCreateForm, BookingStatusForm, RegisterForm, ReviewForm, RoomFilterForm, RoomForm
+from .forms import BookingCreateForm, BookingStatusForm, ContactForm, RegisterForm, ReviewForm, RoomFilterForm, RoomForm
 from .models import Booking, Room
 
 
@@ -46,8 +48,33 @@ def register_view(request):
 
 def room_list(request):
     form = RoomFilterForm(request.GET or None)
+    contact_form = ContactForm(request.POST or None)
     rooms = Room.objects.filter(availability=True).annotate(avg_rating=Avg("reviews__rating"))
     show_all_rooms = request.GET.get("view") == "all"
+
+    if request.method == "POST":
+        if contact_form.is_valid():
+            cleaned = contact_form.cleaned_data
+            subject = f"[CozyStay Contact] {cleaned['subject']}"
+            body = (
+                f"Name: {cleaned['name']}\n"
+                f"Email: {cleaned['email']}\n\n"
+                f"Message:\n{cleaned['message']}"
+            )
+            try:
+                send_mail(
+                    subject=subject,
+                    message=body,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[settings.DEFAULT_FROM_EMAIL],
+                    fail_silently=False,
+                )
+                messages.success(request, "Thanks for contacting us. We will get back to you soon.")
+                return redirect(f"{reverse('room_list')}#contact")
+            except Exception:
+                messages.error(request, "We could not send your message right now. Please try again.")
+        else:
+            messages.error(request, "Please complete all contact form fields correctly.")
 
     if form.is_valid():
         room_type = form.cleaned_data.get("room_type")
@@ -71,6 +98,7 @@ def room_list(request):
             "rooms": rooms,
             "displayed_rooms": displayed_rooms,
             "filter_form": form,
+            "contact_form": contact_form,
             "show_all_rooms": show_all_rooms,
             "total_rooms": total_rooms,
             "remaining_rooms": max(total_rooms - 3, 0),
