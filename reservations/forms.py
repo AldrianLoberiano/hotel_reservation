@@ -105,3 +105,19 @@ class ReviewForm(forms.ModelForm):
             "rating": forms.NumberInput(attrs={"class": "form-control", "min": 1, "max": 5}),
             "comment": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
         }
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=100)
+    email = forms.EmailField()
+    subject = forms.CharField(max_length=150)
+    message = forms.CharField(widget=forms.Textarea)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["name"].widget.attrs.update({"class": "form-control", "placeholder": "Your full name"})
+        self.fields["email"].widget.attrs.update({"class": "form-control", "placeholder": "you@example.com"})
+        self.fields["subject"].widget.attrs.update({"class": "form-control", "placeholder": "How can we help?"})
+        self.fields["message"].widget.attrs.update(
+            {"class": "form-control", "rows": 4, "placeholder": "Write your message here..."}
+        )
