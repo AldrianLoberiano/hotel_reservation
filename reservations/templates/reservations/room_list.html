@@ -173,33 +173,6 @@
     </div>
 </section>
 
-<!-- ═══════ FILTER BAR ═══════ -->
-<div class="filter-bar mb-4" id="filter">
-    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
-        <div>
-            <h2 class="filter-title mb-0"><i class="bi bi-funnel me-2"></i>Refine Your Search</h2>
-        </div>
-        <a href="{% url 'room_list' %}" class="btn btn-outline-primary btn-sm"><i class="bi bi-arrow-counterclockwise me-1"></i>Clear</a>
-    </div>
-    <form method="get" class="row g-3 align-items-end">
-        <div class="col-md-4">
-            <label class="form-label">Room Type</label>
-            {{ filter_form.room_type }}
-        </div>
-        <div class="col-md-3">
-            <label class="form-label">Max Price / Night</label>
-            {{ filter_form.max_price }}
-        </div>
-        <div class="col-md-3">
-            <label class="form-label">Min Capacity</label>
-            {{ filter_form.capacity }}
-        </div>
-        <div class="col-md-2 d-grid">
-            <button class="btn btn-primary" type="submit"><i class="bi bi-search me-1"></i>Search</button>
-        </div>
-    </form>
-</div>
-
 <!-- ═══════ ROOM GRID ═══════ -->
 <div class="d-flex flex-wrap justify-content-between align-items-end gap-2 mb-3" id="rooms">
     <div>
