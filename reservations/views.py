@@ -47,6 +47,7 @@ def register_view(request):
 def room_list(request):
     form = RoomFilterForm(request.GET or None)
     rooms = Room.objects.filter(availability=True).annotate(avg_rating=Avg("reviews__rating"))
+    show_all_rooms = request.GET.get("view") == "all"
 
     if form.is_valid():
         room_type = form.cleaned_data.get("room_type")
@@ -60,7 +61,21 @@ def room_list(request):
         if capacity:
             rooms = rooms.filter(capacity__gte=capacity)
 
-    return render(request, "reservations/room_list.html", {"rooms": rooms, "filter_form": form})
+    total_rooms = rooms.count()
+    displayed_rooms = rooms if show_all_rooms else rooms[:3]
+
+    return render(
+        request,
+        "reservations/room_list.html",
+        {
+            "rooms": rooms,
+            "displayed_rooms": displayed_rooms,
+            "filter_form": form,
+            "show_all_rooms": show_all_rooms,
+            "total_rooms": total_rooms,
+            "remaining_rooms": max(total_rooms - 3, 0),
+        },
+    )
 
 
 def room_detail(request, room_id):
