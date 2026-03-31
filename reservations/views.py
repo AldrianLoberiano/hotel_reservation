@@ -47,8 +47,12 @@ def register_view(request):
 
 
 def room_list(request):
+    if request.user.is_authenticated and request.user.is_staff:
+        return redirect("admin_dashboard")
+
     form = RoomFilterForm(request.GET or None)
     contact_form = ContactForm(request.POST or None)
+
     rooms = Room.objects.filter(availability=True).annotate(avg_rating=Avg("reviews__rating"))
 
     if request.method == "POST":
