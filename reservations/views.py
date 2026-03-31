@@ -50,7 +50,6 @@ def room_list(request):
     form = RoomFilterForm(request.GET or None)
     contact_form = ContactForm(request.POST or None)
     rooms = Room.objects.filter(availability=True).annotate(avg_rating=Avg("reviews__rating"))
-    show_all_rooms = request.GET.get("view") == "all"
 
     if request.method == "POST":
         if contact_form.is_valid():
@@ -89,17 +88,14 @@ def room_list(request):
             rooms = rooms.filter(capacity__gte=capacity)
 
     total_rooms = rooms.count()
-    displayed_rooms = rooms if show_all_rooms else rooms[:3]
 
     return render(
         request,
         "reservations/room_list.html",
         {
             "rooms": rooms,
-            "displayed_rooms": displayed_rooms,
             "filter_form": form,
             "contact_form": contact_form,
-            "show_all_rooms": show_all_rooms,
             "total_rooms": total_rooms,
             "remaining_rooms": max(total_rooms - 3, 0),
         },
